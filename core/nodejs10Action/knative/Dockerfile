@@ -25,12 +25,13 @@ WORKDIR /nodejsAction
 # COPY source code "*.js" from nodejsActionBase to current working dir
 RUN mkdir ./src /platform
 COPY ./docker-source/core/nodejsActionBase/*.js ./
-COPY ./core/nodejsActionBase/src/*.js ./src/
-COPY ./core/nodejsActionBase/platform/*.js ./platform/
-COPY . .
+COPY ./docker-source/core/nodejsActionBase/src/*.js ./src/
+COPY ./docker-source/core/nodejsActionBase/platform/*.js ./platform/
+COPY ./docker-source .
+#COPY ./docker-source/* .
 # COPY the package.json to root container, so we can install npm packages a level up from user's packages,
 # so user's packages take precedence
-COPY ./core/nodejs10Action/package.json /
+COPY ./docker-source/core/nodejs10Action/package.json /
 RUN cd / && npm install --no-package-lock \
     && npm cache clean --force
 EXPOSE 8080
